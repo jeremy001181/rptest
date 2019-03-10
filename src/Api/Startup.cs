@@ -28,10 +28,13 @@ namespace Api
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
-            services.Configure<ApiOption>(Configuration);
 
-            services.AddHttpClient<IPhotoApiClient, PhotoApiClient>();
-            services.AddHttpClient<IAlbumApiClient, AlbumApiClient>();
+            services.AddHttpClient<IPhotoApiClient, PhotoApiClient>((client) => {
+                client.BaseAddress = new Uri(Configuration.GetValue<string>("PhotosApiBaseUrl"));
+            });
+            services.AddHttpClient<IAlbumApiClient, AlbumApiClient>((client) => {
+                client.BaseAddress = new Uri(Configuration.GetValue<string>("AlbumsApiBaseUrl"));
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

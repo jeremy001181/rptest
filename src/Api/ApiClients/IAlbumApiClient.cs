@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using Api.Models;
+using System.Threading.Tasks;
 
 namespace Api.ApiClients
 {
